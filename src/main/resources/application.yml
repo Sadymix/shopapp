@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:~/ShopAppDatabase
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  h2:
+    console:
+      enable: false
+      path: /h2
+      settings:
+        trace: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
