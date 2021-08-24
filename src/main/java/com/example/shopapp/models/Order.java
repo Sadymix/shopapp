@@ -3,7 +3,7 @@ package com.example.shopapp.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,14 +12,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "order")
+@Entity
+@Table(name="orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private long orderId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "Products",
             joinColumns = {@JoinColumn(name = "orderId")},
             inverseJoinColumns = {@JoinColumn(name = "projectId")})
