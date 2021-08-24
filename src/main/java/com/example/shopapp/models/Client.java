@@ -3,7 +3,6 @@ package com.example.shopapp.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,12 +10,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "client")
+@Entity
+@Table(name = "clients")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clientId;
+    private long clientId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -36,7 +36,7 @@ public class Client {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Order> clientOrders;
 
 }
