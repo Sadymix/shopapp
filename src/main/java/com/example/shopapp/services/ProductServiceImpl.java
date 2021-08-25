@@ -2,15 +2,16 @@ package com.example.shopapp.services;
 
 import com.example.shopapp.models.Product;
 import com.example.shopapp.repositories.ProductRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
-
-    private ProductRepo productRepo;
+    private final ProductRepo productRepo;
 
     @Override
     public List<Product> getProducts() {

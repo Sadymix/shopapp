@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/shop")
+@RequestMapping(value = "/shop")
 public class ProductsController {
 
     @Autowired
@@ -27,3 +27,4 @@ public class ProductsController {
         return "product-list";
     }
 }
+

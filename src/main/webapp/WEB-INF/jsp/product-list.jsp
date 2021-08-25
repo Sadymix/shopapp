@@ -20,7 +20,7 @@
                     <th>Price PLN</th>
                     <th>Add To Basket</th>
                 </tr>
-<%--                <c:url var="addToBasket" value="products/basket">--%>
+<%--                <c:url var="addToBasket" value="products">--%>
 <%--                    <c:param name="productId" value="${tempProduct.id}"></c:param>--%>
 <%--                </c:url>--%>
                 <c:forEach var="tempProduct" items="${products}">
