@@ -18,16 +18,18 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long orderId;
+    @Column(name = "order_id")
+    private Long orderId;
+
 
     @ManyToMany
-    @JoinTable(name = "Products",
-            joinColumns = {@JoinColumn(name = "orderId")},
-            inverseJoinColumns = {@JoinColumn(name = "projectId")})
+    @JoinTable(name = "product_order",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "order_id")})
     private List<Product> productList = new ArrayList<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Client cLient;
+    private Client client;
 
 }
