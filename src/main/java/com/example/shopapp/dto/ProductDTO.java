@@ -1,13 +1,14 @@
 package com.example.shopapp.dto;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 @Data
-@EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class ProductDTO {
 
 
@@ -17,10 +18,4 @@ public class ProductDTO {
     @NotNull
     private String productName;
 
-    @Builder
-    public ProductDTO(Long productId, @NotNull double price, @NotNull String productName) {
-        this.productId = productId;
-        this.price = price;
-        this.productName = productName;
-    }
 }

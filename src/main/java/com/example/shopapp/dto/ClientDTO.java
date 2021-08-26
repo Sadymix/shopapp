@@ -2,12 +2,13 @@ package com.example.shopapp.dto;
 
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class ClientDTO{
 
     private Long clientId;
@@ -30,15 +31,5 @@ public class ClientDTO{
     @NotNull
     private String country;
 
-    @Builder
-    public ClientDTO(Long clientId, @NotNull String firstName, @NotNull String lastName, @NotNull String city,
-                     @NotNull String street, @NotNull String postalCode, @NotNull String country) {
-        this.clientId = clientId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.street = street;
-        this.postalCode = postalCode;
-        this.country = country;
-    }
+
 }

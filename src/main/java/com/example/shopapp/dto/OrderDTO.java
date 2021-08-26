@@ -1,17 +1,13 @@
 package com.example.shopapp.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class OrderDTO {
 
     private Long orderId;
-
-    @Builder
-    public OrderDTO(Long orderId) {
-        this.orderId = orderId;
-    }
 }

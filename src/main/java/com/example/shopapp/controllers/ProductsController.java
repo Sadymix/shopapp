@@ -1,8 +1,8 @@
 package com.example.shopapp.controllers;
 
-import com.example.shopapp.models.Product;
+import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +12,16 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/shop")
+@RequiredArgsConstructor
 public class ProductsController {
 
-    @Autowired
-    private ProductService productService;
+
+    private final ProductService productService;
 
     @GetMapping("/products")
     public String listProducts(Model model) {
 
-        List<Product> theProducts = productService.getProducts();
+        List<ProductDTO> theProducts = productService.getProducts();
 
         model.addAttribute("products", theProducts);
 

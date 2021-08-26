@@ -1,6 +1,6 @@
 package com.example.shopapp.services;
 
-import com.example.shopapp.models.Product;
+import com.example.shopapp.dto.ProductDTO;
 
 import java.util.List;
 
@@ -9,8 +9,7 @@ public interface ProductService {
 
 
 
-    public List<Product> getProducts();
+    public List<ProductDTO> getProducts();
 
-    public Product getProduct();
 
 }
