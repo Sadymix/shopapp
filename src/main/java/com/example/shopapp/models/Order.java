@@ -21,6 +21,9 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column(name = "total_price")
+    private double totalPrice;
+
 
     @ManyToMany
     @JoinTable(name = "product_order",
@@ -31,5 +34,10 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Client client;
+
+    @Column(name = "order_status")
+    @Enumerated
+    private OrderStatus orderStatus;
+
 
 }
