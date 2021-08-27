@@ -18,12 +18,13 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductMapper productMapper;
     @Override
-    public List<ProductDTO> getProducts() {
+    public List<ProductDTO> getAllProducts() {
 
         List<Product> products = (List<Product>) productRepo.findAll();
         return products.stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
+
 
 }

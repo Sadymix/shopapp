@@ -8,8 +8,8 @@ import java.util.List;
 public interface ProductService {
 
 
+    public List<ProductDTO> getAllProducts();
 
-    public List<ProductDTO> getProducts();
 
 
 }

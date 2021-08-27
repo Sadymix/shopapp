@@ -24,7 +24,7 @@
                     <tr>
                         <td> ${tempProduct.productName}</td>
                         <td> ${tempProduct.price}</td>
-                        <td><a href="${addToBasket}">Add</a></td>
+                        <td>add</td>
                     </tr>
                 </c:forEach>
             </table>

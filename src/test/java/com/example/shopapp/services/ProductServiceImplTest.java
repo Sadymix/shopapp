@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -40,7 +39,7 @@ class ProductServiceImplTest {
 
     @Test
     void testGetProducts() {
-        var products = tested.getProducts();
+        var products = tested.getAllProducts();
 
         Assertions.assertEquals(3, products.size());
         verify(repo).findAll();
