@@ -16,11 +16,12 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long productId;
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "product_name")
     private String productName;
 
     @Column(name = "price")
-    private int price;
+    private double price;
 }
