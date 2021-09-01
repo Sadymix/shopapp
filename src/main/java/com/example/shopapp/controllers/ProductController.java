@@ -1,8 +1,8 @@
 package com.example.shopapp.controllers;
 
+import com.example.shopapp.dto.CartDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.services.ProductService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +30,13 @@ public class ProductController {
 
         model.addAttribute("products", theProducts);
 
-        model.addAttribute("formIdList", new CartDto());
+        model.addAttribute("formIdList", new CartDTO());
 
         return "product-list";
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
-    public String addProductsToBasket(@ModelAttribute("formIdList")CartDto theProductIds, Model model) {
+    public String addProductsToBasket(@ModelAttribute("formIdList")CartDTO theProductIds, Model model) {
         List<ProductDTO> theProducts = productService.getAllProducts();
 
         List<ProductDTO> theBasketProducts = new ArrayList<>();
@@ -59,11 +59,5 @@ public class ProductController {
 
         return "basket-list";
     }
-
-@Data
-private class CartDto {
-        private String productIds;
-}
-
 }
 
