@@ -1,10 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Shop Application</title>
+
+    <script src="<c:url value="/js/product-list.js"/>"></script>
 </head>
 
 <body>
@@ -43,18 +46,4 @@
     <input type="hidden" id="idInput" name="productIds">
 </form:form>
 </body>
-<script>
-
-    let listOfProductIds = [];
-
-    function addToCart(id) {
-        listOfProductIds.push(id);
-        document.getElementById("addToCart").innerHTML = "Cart " + listOfProductIds.length;
-    }
-
-    function submitForm() {
-        document.getElementById("idInput").setAttribute("value",listOfProductIds.join());
-        document.getElementById("idForm").submit();
-    }
-</script>
 </html>
