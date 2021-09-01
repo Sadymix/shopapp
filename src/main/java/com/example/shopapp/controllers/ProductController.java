@@ -2,7 +2,7 @@ package com.example.shopapp.controllers;
 
 import com.example.shopapp.dto.CartDTO;
 import com.example.shopapp.dto.ProductDTO;
-import com.example.shopapp.services.BasketService;
+import com.example.shopapp.services.CartService;
 import com.example.shopapp.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    private final BasketService basketService;
+    private final CartService cartService;
 
     @GetMapping("/products")
     public String listProducts(Model model) {
@@ -39,7 +39,7 @@ public class ProductController {
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     public String addProductsToBasket(@ModelAttribute("formIdList")CartDTO theProductIds, Model model) {
 
-        List<ProductDTO> theBasketProducts = basketService.addProductsToBasket(theProductIds);
+        List<ProductDTO> theBasketProducts = cartService.addProductsToBasket(theProductIds)
 
         model.addAttribute("basketProducts" , theBasketProducts);
 
