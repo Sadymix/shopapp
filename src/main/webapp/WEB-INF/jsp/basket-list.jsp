@@ -21,11 +21,10 @@
                     <th>Price PLN</th>
 
                 </tr>
-                <c:forEach var="tempProduct" items="${products}">
-                    <c:forEach var="tempProductId" items="${listOfProductsIds}"></c:forEach>
+                <c:forEach var="basketProduct" items="${basketProducts}">
                     <tr>
-                        <td> ${tempProduct.productName}</td>
-                        <td> ${tempProduct.price}</td>
+                        <td> ${basketProduct.productName}</td>
+                        <td> ${basketProduct.price}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -37,8 +36,5 @@
         </div>
     </div>
 </body>
-<script>
-    request.getAttribute("listOfProductIds");
-</script>
 
 </html>
