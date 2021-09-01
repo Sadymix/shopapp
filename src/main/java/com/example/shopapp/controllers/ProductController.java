@@ -2,6 +2,7 @@ package com.example.shopapp.controllers;
 
 import com.example.shopapp.dto.CartDTO;
 import com.example.shopapp.dto.ProductDTO;
+import com.example.shopapp.services.BasketService;
 import com.example.shopapp.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +22,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final BasketService basketService;
 
     @GetMapping("/products")
     public String listProducts(Model model) {
@@ -37,23 +38,8 @@ public class ProductController {
 
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     public String addProductsToBasket(@ModelAttribute("formIdList")CartDTO theProductIds, Model model) {
-        List<ProductDTO> theProducts = productService.getAllProducts();
 
-        List<ProductDTO> theBasketProducts = new ArrayList<>();
-
-        String s = theProductIds.getProductIds();
-
-        String[] productIdsArr = s.split(",");
-        int size = productIdsArr.length;
-        List<Integer> productIdsList = new ArrayList<>();
-
-        for(int i = 0; i< productIdsArr.length; i++) {
-            productIdsList.add(Integer.parseInt(productIdsArr[i]));
-        }
-
-        for(int i =0; i<productIdsList.size(); i++) {
-            theBasketProducts.add(theProducts.get(productIdsList.get(i) - 1));
-        }
+        List<ProductDTO> theBasketProducts = basketService.addProductsToBasket(theProductIds);
 
         model.addAttribute("basketProducts" , theBasketProducts);
 
