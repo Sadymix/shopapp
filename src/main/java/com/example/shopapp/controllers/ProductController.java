@@ -39,7 +39,7 @@ public class ProductController {
     @RequestMapping(value = "/cart", method = RequestMethod.POST)
     public String addProductsToBasket(@ModelAttribute("formIdList")CartDTO theProductIds, Model model) {
 
-        List<ProductDTO> theBasketProducts = cartService.addProductsToBasket(theProductIds)
+        List<ProductDTO> theBasketProducts = cartService.getProductsByIds(theProductIds);
 
         model.addAttribute("basketProducts" , theBasketProducts);
 
