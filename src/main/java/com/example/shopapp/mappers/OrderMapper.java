@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderMapper {
 
-    public OrderDTO toDTO(Order orderEntity){
+    public OrderDTO toDTO(Order orderEntity) {
         return OrderDTO.builder()
                 .orderId(orderEntity.getOrderId())
                 .build();

@@ -38,12 +38,13 @@ public class CartService {
 
     private Product getProductWithId(Long id, Iterable<Product> iterableProduct) {
 
-        Product theProduct = new Product();
-        for(Product product: iterableProduct) {
-            if(product.getProductId() == id) {
-                theProduct= product;
+
+
+        for(Product product:iterableProduct) {
+            if (product.getProductId().equals(id)) {
+               return product;
             }
         }
-        return theProduct;
+        return null;
     }
 }
