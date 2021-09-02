@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProductServiceImplTest {
+class ProductServiceTest {
 
     @Mock
     private ProductRepo repo;
@@ -26,7 +26,7 @@ class ProductServiceImplTest {
     private ProductMapper mapper;
 
     @InjectMocks
-    private ProductServiceImpl tested;
+    private ProductService tested;
 
     @BeforeEach
     void setUp() {
