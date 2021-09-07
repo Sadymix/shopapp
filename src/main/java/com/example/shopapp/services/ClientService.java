@@ -4,8 +4,10 @@ import com.example.shopapp.dto.ClientDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
 import com.example.shopapp.mappers.ProductMapper;
+import com.example.shopapp.models.Order;
 import com.example.shopapp.models.Product;
 import com.example.shopapp.repositories.ClientRepo;
+import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.repositories.ProductRepo;
 import com.example.shopapp.wrappers.ClientWrapper;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +29,33 @@ public class ClientService {
 
     private final ProductMapper productMapper;
 
-    public void addClient(ClientDTO clientDTO) {
+    private final OrderRepo orderRepo;
+
+    public void addClientAndOrder(ClientDTO clientDTO, ClientWrapper clientWrapper) {
 
         var client = clientMapper.toEntity(clientDTO);
-        clientRepo.save(client);
+
+        var orderClient = clientRepo.save(client);
+
+        var totalPrice = getOrderTotalPrice(clientWrapper);
+
+        var orderProductsDTOList = getProductsByIds(clientWrapper);
+
+        var orderProductsList = orderProductsDTOList.stream()
+                .map(productMapper::toEntity)
+                .toList();
+
+        Order order = new Order();
+
+        order.setClient(orderClient);
+        order.setProductList(orderProductsList);
+        order.setTotalPrice(totalPrice);
+
+        orderRepo.save(order);
     }
 
     public List<ProductDTO> getProductsByIds(ClientWrapper clientWrapper) {
+
         var theProductIdsString = clientWrapper.getOrderProductIds();
 
         var arr = theProductIdsString.split(",");
@@ -42,7 +64,7 @@ public class ClientService {
                 .map(Long::parseLong)
                 .distinct()
                 .toList();
-        var products = productRepo.findAll();
+        var products = productRepo.findAllById(productIdsList);
 
         return Arrays.stream(arr)
                 .map(Long::parseLong)
@@ -53,12 +75,21 @@ public class ClientService {
 
     private Product getProductWithIds(Long id, Iterable<Product> iterableProduct) {
 
-        for(Product product:iterableProduct) {
+        for (Product product : iterableProduct) {
             if (product.getProductId().equals(id)) {
                 return product;
             }
         }
         return null;
+    }
+
+    private Double getOrderTotalPrice(ClientWrapper clientWrapper) {
+        double totalPrice = 0.0;
+        List<ProductDTO> orderProductsList = getProductsByIds(clientWrapper);
+        for (ProductDTO productDTO : orderProductsList) {
+            totalPrice += productDTO.getPrice();
+        }
+        return totalPrice;
     }
 
 }
