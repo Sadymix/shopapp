@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClientMapper {
-    public ClientDTO toDTO(Client clientEntity) {
-        return ClientDTO.builder()
-                .clientId(clientEntity.getClientId())
-                .firstName(clientEntity.getFirstName())
-                .lastName(clientEntity.getLastName())
-                .city(clientEntity.getCity())
-                .street(clientEntity.getStreet())
-                .postalCode(clientEntity.getPostalCode())
-                .country(clientEntity.getCountry())
+    public Client toEntity(ClientDTO clientDTO) {
+        return Client.builder()
+                .clientId(clientDTO.getClientId())
+                .firstName(clientDTO.getFirstName())
+                .lastName(clientDTO.getLastName())
+                .city(clientDTO.getCity())
+                .street(clientDTO.getStreet())
+                .postalCode(clientDTO.getPostalCode())
+                .country(clientDTO.getCountry())
                 .build();
     }
 }
