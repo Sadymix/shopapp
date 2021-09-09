@@ -37,7 +37,7 @@ public class ProductController {
     @PostMapping("/cart")
     public String addProductsToBasket(@ModelAttribute("formIdList") CartDTO theProductIds, Model model) {
 
-        var theBasketProducts = cartService.getProductsByIds(theProductIds);
+        var theBasketProducts = cartService.getProductsByIds(theProductIds.getProductIds());
 
         model.addAttribute("basketProducts", theBasketProducts);
 
