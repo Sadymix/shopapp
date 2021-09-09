@@ -1,6 +1,5 @@
 package com.example.shopapp.services;
 
-import com.example.shopapp.dto.CartDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ProductMapper;
 import com.example.shopapp.models.Product;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,10 +19,9 @@ public class CartService {
     private final ProductRepo productRepo;
     private final ProductMapper productMapper;
 
-    public List<ProductDTO> getProductsByIds(CartDTO theProductIds) {
-        String s = theProductIds.getProductIds();
+    public List<ProductDTO> getProductsByIds(String theProductIds) {
 
-        String[] productIdsArr = s.split(",");
+        String[] productIdsArr = theProductIds.split(",");
         var productIdsList = Arrays.stream(productIdsArr)
                 .map(Long::parseLong)
                 .distinct()
@@ -32,6 +31,7 @@ public class CartService {
         return Arrays.stream(productIdsArr)
                 .map(Long::parseLong)
                 .map(id -> getProductWithId(id, products))
+                .filter(Objects::nonNull)
                 .map(productMapper::toDto)
                 .toList();
     }
