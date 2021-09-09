@@ -1,5 +1,6 @@
 package com.example.shopapp.controllers;
 
+import com.example.shopapp.services.CartService;
 import com.example.shopapp.services.ClientService;
 import com.example.shopapp.wrappers.ClientWrapper;
 import com.example.shopapp.wrappers.OrderWrapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClientController {
 
     private final ClientService clientService;
+    private final CartService cartService;
 
 
     @PostMapping("/order")
@@ -24,7 +26,7 @@ public class ClientController {
 
         clientService.addClientAndOrder(clientWrapper);
 
-        var theOrderProducts = clientService.getOrderProductsByIds(clientWrapper);
+        var theOrderProducts = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
 
         model.addAttribute("orderProducts", theOrderProducts);
 
