@@ -38,7 +38,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void testGetProducts() {
+    void testGetAllProducts() {
         var products = tested.getAllProducts();
 
         Assertions.assertEquals(3, products.size());
