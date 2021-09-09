@@ -83,7 +83,7 @@ class ClientServiceTest {
         stubbingSetUp(client);
         Order order = orderSetUp(clientWrapper, client);
 
-        verify(productMapper, times(6)).toEntity(any(ProductDTO.class));
+        verify(productMapper, times(12)).toEntity(any(ProductDTO.class));
         verify(clientRepo, atLeast(0)).save(client);
         verify(orderRepo, atLeast(0)).save(order);
         assertEqualsIds(order);
