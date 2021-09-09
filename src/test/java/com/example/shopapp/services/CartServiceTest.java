@@ -68,7 +68,7 @@ class CartServiceTest {
                 .distinct()
                 .toList();
 
-        var products = tested.getProductsByIds(cartDTO);
+        var products = tested.getProductsByIds(cartDTO.getProductIds());
         assertEquals(8, products.size());
         verify(productRepo).findAllById(productIdsList);
         verify(productMapper, times(8)).toDto(any(Product.class));
