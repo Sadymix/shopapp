@@ -1,4 +1,4 @@
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
@@ -6,7 +6,6 @@
 
 <head>
     <title>Order</title>
-
 </head>
 
 <body>
@@ -43,10 +42,10 @@
                     <th>Product Name</th>
                     <th>Price PLN</th>
                 </tr>
-            <c:forEach var="tempProduct" items="${orderProducts}">
+            <c:forEach var="orderProduct" items="${orderProducts}">
                 <tr>
-                    <td>${tempProduct.productName}</td>
-                    <td>${tempProduct.price}</td>
+                    <td>${orderProduct.productName}</td>
+                    <td>${orderProduct.price}</td>
                 </tr>
             </c:forEach>
             <tr>
@@ -55,11 +54,5 @@
         </table>
     </div>
 </div>
-<div>
-    <div>
-        <button>Payment</button>
-    </div>
-</div>
-
 </body>
 </html>

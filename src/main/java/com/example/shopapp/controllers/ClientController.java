@@ -22,9 +22,9 @@ public class ClientController {
     public String client(@ModelAttribute("clientWrapper") ClientWrapper clientWrapper, Model model) {
         var clientDTO = clientWrapper.getClient();
 
-        clientService.addClientAndOrder(clientDTO, clientWrapper);
+        clientService.addClientAndOrder(clientWrapper);
 
-        var theOrderProducts = clientService.getProductsByIds(clientWrapper);
+        var theOrderProducts = clientService.getOrderProductsByIds(clientWrapper);
 
         model.addAttribute("orderProducts", theOrderProducts);
 

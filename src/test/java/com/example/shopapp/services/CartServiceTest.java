@@ -44,8 +44,12 @@ class CartServiceTest {
                 .distinct()
                 .toList();
 
-        doReturn(List.of(mockProduct(1L), mockProduct(2L), mockProduct(3L),
-                mockProduct(4L), mockProduct(5L))).when(productRepo).findAllById(productIdsList);
+        doReturn(List.of(mockProduct(1L),
+                mockProduct(2L),
+                mockProduct(3L),
+                mockProduct(4L),
+                mockProduct(5L)))
+                .when(productRepo).findAllById(productIdsList);
 
         when(productMapper.toDto(any(Product.class))).thenAnswer(invocationOnMock -> {
             Product product = invocationOnMock.getArgument(0);
@@ -77,7 +81,6 @@ class CartServiceTest {
         assertEquals(2L, products.get(6).getProductId());
         assertEquals(4L, products.get(7).getProductId());
 
-
     }
 
     private Product mockProduct(Long id) {
@@ -85,5 +88,6 @@ class CartServiceTest {
         var product = mock(Product.class);
         doReturn(id).when(product).getProductId();
         return product;
+
     }
 }

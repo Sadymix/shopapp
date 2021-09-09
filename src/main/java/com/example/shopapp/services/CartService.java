@@ -38,11 +38,9 @@ public class CartService {
 
     private Product getProductWithId(Long id, Iterable<Product> iterableProduct) {
 
-
-
-        for(Product product:iterableProduct) {
+        for (Product product : iterableProduct) {
             if (product.getProductId().equals(id)) {
-               return product;
+                return product;
             }
         }
         return null;

@@ -7,10 +7,10 @@ function submitClientForm() {
 
 function getIdsValueToArr() {
 
-    const arr = document.getElementsByClassName("classValues");
+    const collectionOf = document.getElementsByClassName("classValues");
 
-    for (let i = 0; i < arr.length; i++) {
-        listOfProductIds.push(arr.item(i).value);
+    for (let i = 0; i < collectionOf.length; i++) {
+        listOfProductIds.push(collectionOf.item(i).value);
     }
     document.getElementById("productIdsInput").setAttribute("value", listOfProductIds.join());
 }

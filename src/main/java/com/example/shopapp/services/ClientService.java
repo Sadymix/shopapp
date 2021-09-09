@@ -1,6 +1,5 @@
 package com.example.shopapp.services;
 
-import com.example.shopapp.dto.ClientDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
 import com.example.shopapp.mappers.ProductMapper;
@@ -31,35 +30,27 @@ public class ClientService {
 
     private final OrderRepo orderRepo;
 
-    public void addClientAndOrder(ClientDTO clientDTO, ClientWrapper clientWrapper) {
+    public void addClientAndOrder(ClientWrapper clientWrapper) {
 
-        var client = clientMapper.toEntity(clientDTO);
-
+        var client = clientMapper.toEntity(clientWrapper.getClient());
         var orderClient = clientRepo.save(client);
-
-        var totalPrice = getOrderTotalPrice(clientWrapper);
-
-        var orderProductsDTOList = getProductsByIds(clientWrapper);
-
+        var orderProductsDTOList = getOrderProductsByIds(clientWrapper);
         var orderProductsList = orderProductsDTOList.stream()
                 .map(productMapper::toEntity)
                 .toList();
 
+        var totalPrice = getOrderTotalPrice(orderProductsList);
         Order order = new Order();
-
         order.setClient(orderClient);
         order.setProductList(orderProductsList);
         order.setTotalPrice(totalPrice);
-
         orderRepo.save(order);
     }
 
-    public List<ProductDTO> getProductsByIds(ClientWrapper clientWrapper) {
+    public List<ProductDTO> getOrderProductsByIds(ClientWrapper clientWrapper) {
 
         var theProductIdsString = clientWrapper.getOrderProductIds();
-
         var arr = theProductIdsString.split(",");
-
         var productIdsList = Arrays.stream(arr)
                 .map(Long::parseLong)
                 .distinct()
@@ -83,11 +74,10 @@ public class ClientService {
         return null;
     }
 
-    private Double getOrderTotalPrice(ClientWrapper clientWrapper) {
+    private Double getOrderTotalPrice(List<Product> orderProductsList) {
         double totalPrice = 0.0;
-        List<ProductDTO> orderProductsList = getProductsByIds(clientWrapper);
-        for (ProductDTO productDTO : orderProductsList) {
-            totalPrice += productDTO.getPrice();
+        for (Product product : orderProductsList) {
+            totalPrice += product.getPrice();
         }
         return totalPrice;
     }
