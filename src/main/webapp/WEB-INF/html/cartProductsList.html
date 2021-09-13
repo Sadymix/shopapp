@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+
+<body>
+<div>
+    <div>
+        <h2>Your Basket</h2>
+    </div>
+</div>
+<div>
+    <div>
+        <table id="cartProducts">
+            <tr>
+                <th>Product Name</th>
+                <th>Price PLN</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div>
+    <div>
+        <form id="clientForm" method="post" action="/shop/order">
+            <label>First Name: </label>
+            <input type="text" name="client.firstName" id="firstName">
+            <br><br>
+            <label>Last Name: </label>
+            <input type="text" name="client.lastName" id="lastName">
+            <br><br>
+            <label>City: </label>
+            <input type="text" name="client.city" id="city">
+            <br><br>
+            <label>Street: </label>
+            <input type="text" name="client.street" id="street">
+            <br><br>
+            <label>Postal Code: </label>
+            <input type="text" name="client.postalCode" id="postalCode">
+            <br><br>
+            <label>Country: </label>
+            <input type="text" name="client.country" id="country">
+            <input type="hidden" id="productIdsInput" name="orderProductIds">
+            <br><br>
+            <input type="submit" id="order" value="Order"/>
+        </form>
+
+    </div>
+</div>
+<script src="../js/cartProductsList.js"></script>
+</body>
+</html>
