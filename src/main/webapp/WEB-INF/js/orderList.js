@@ -1,23 +1,26 @@
 $(document).ready(() => {
-    var client = JSON.parse(localStorage.getItem("client"));
-    var orderProductsList = JSON.parse(localStorage.getItem("productList"));
+    var order = JSON.parse(localStorage.getItem("order"));
 
-    for (let product of orderProductsList) {
-        let tableRow = $(("<tr id ='" + cartProduct.productId + "'>" +
-            "<td>" + cartProduct.productName + "</td>" +
-            "<td>" + cartProduct.price + "</td>" +
-            "</tr>"));
+    let clientTableRow = $(("<tr id ='" + order.client.clientId + "'>" +
+        "<td>" + order.client.firstName + "</td>" +
+        "<td>" + order.client.lastName + "</td>" +
+        "<td>" + order.client.city + "</td>" +
+        "<td>" + order.client.street + "</td>" +
+        "<td>" + order.client.postalCode + "</td>" +
+        "<td>" + order.client.country + "</td>" +
+        "</tr>"));
+    $('#client').append(clientTableRow);
+
+    for (let product of order.productList) {
+        let tableRow = $("<tr id ='" + product.productId + "'>" +
+            "<td>" + product.productName + "</td>" +
+            "<td>" + product.price + "</td>" +
+            "</tr>");
         $('#orderProducts').append(tableRow);
     }
-
-    let tableRow = $(("<tr id ='" + client.clientId + "'>" +
-        "<td>" + client.firstName + "</td>" +
-        "<td>" + client.lastName + "</td>" +
-        "<td>" + client.city + "</td>" +
-        "<td>" + client.street + "</td>" +
-        "<td>" + client.postalCode + "</td>" +
-        "<td>" + client.country + "</td>" +
-        "</tr>"));
-    $('#client').append(tableRow);
+    let cartTotalPrice = $("<br><a>" +
+        "TOTAL PRICE " + order.totalPrice + " PLN" +
+        "</a>");
+    $('#totalPrice').append(cartTotalPrice);
 })
 
