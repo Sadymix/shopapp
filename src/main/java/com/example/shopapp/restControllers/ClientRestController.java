@@ -1,6 +1,6 @@
 package com.example.shopapp.restControllers;
 
-import com.example.shopapp.dto.ClientDTO;
+import com.example.shopapp.models.Order;
 import com.example.shopapp.services.ClientService;
 import com.example.shopapp.wrappers.ClientWrapper;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +21,7 @@ public class ClientRestController {
     @PostMapping(value = "/order",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClientDTO client(@RequestBody ClientWrapper clientWrapper) {
-
-        clientService.addClientAndOrder(clientWrapper);
-
-        return clientWrapper.getClient();
+    public Order client(@RequestBody ClientWrapper clientWrapper) {
+        return clientService.addClientAndOrder(clientWrapper);
     }
 }
