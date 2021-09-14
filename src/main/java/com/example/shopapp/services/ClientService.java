@@ -27,7 +27,7 @@ public class ClientService {
 
     private final CartService cartService;
 
-    public void addClientAndOrder(ClientWrapper clientWrapper) {
+    public Order addClientAndOrder(ClientWrapper clientWrapper) {
         var client = clientMapper.toEntity(clientWrapper.getClient());
         var orderClient = clientRepo.save(client);
         var orderProductsDTOList = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
@@ -41,6 +41,8 @@ public class ClientService {
         order.setProductList(orderProductsList);
         order.setTotalPrice(totalPrice);
         orderRepo.save(order);
+mod
+        return order;
     }
 
     private Double getOrderTotalPrice(List<Product> orderProductsList) {
