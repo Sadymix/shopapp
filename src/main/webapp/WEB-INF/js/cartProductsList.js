@@ -5,7 +5,7 @@ $(document).ready(() => {
             "<td>" + cartProduct.productName + "</td>" +
             "<td>" + cartProduct.price + "</td>" +
             "</tr>")
-            .data("productId", cartProduct.productId);
+            // .data("productId", cartProduct.productId);
         $('#cartProducts').append(tableRow);
     }
 

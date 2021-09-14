@@ -1,17 +1,17 @@
 $(document).ready(() => {
     var order = JSON.parse(localStorage.getItem("order"));
 
-    let clientTableRow = $(("<tr id ='" + order.client.clientId + "'>" +
-        "<td>" + order.client.firstName + "</td>" +
-        "<td>" + order.client.lastName + "</td>" +
-        "<td>" + order.client.city + "</td>" +
-        "<td>" + order.client.street + "</td>" +
-        "<td>" + order.client.postalCode + "</td>" +
-        "<td>" + order.client.country + "</td>" +
+    let clientTableRow = $(("<tr id ='" + order.clientDTO.clientId + "'>" +
+        "<td>" + order.clientDTO.firstName + "</td>" +
+        "<td>" + order.clientDTO.lastName + "</td>" +
+        "<td>" + order.clientDTO.city + "</td>" +
+        "<td>" + order.clientDTO.street + "</td>" +
+        "<td>" + order.clientDTO.postalCode + "</td>" +
+        "<td>" + order.clientDTO.country + "</td>" +
         "</tr>"));
     $('#client').append(clientTableRow);
 
-    for (let product of order.productList) {
+    for (let product of order.products) {
         let tableRow = $("<tr id ='" + product.productId + "'>" +
             "<td>" + product.productName + "</td>" +
             "<td>" + product.price + "</td>" +
@@ -23,4 +23,5 @@ $(document).ready(() => {
         "</a>");
     $('#totalPrice').append(cartTotalPrice);
 })
+localStorage.clear();
 
