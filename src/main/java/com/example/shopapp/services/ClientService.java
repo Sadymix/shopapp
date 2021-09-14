@@ -41,7 +41,7 @@ public class ClientService {
         order.setProductList(orderProductsList);
         order.setTotalPrice(totalPrice);
         orderRepo.save(order);
-mod
+
         return order;
     }
 
