@@ -1,30 +1,36 @@
 $(document).ready(() => {
     var productsList = JSON.parse(localStorage.getItem("productsList"));
-    var cartProductsList = productsList;
-    console.log(cartProductsList);
-    for (let cartProduct of cartProductsList) {
-        let tableRow = $(("<tr id ='" + cartProduct.productId + "'>" +
+    for (let cartProduct of productsList) {
+        let tableRow = $("<tr id ='" + cartProduct.productId + "'>" +
             "<td>" + cartProduct.productName + "</td>" +
             "<td>" + cartProduct.price + "</td>" +
-            "</tr>"));
-        tableRow.find(".productIdsInput").data("productId", cartProduct.productId);
+            "</tr>")
+            .data("productId", cartProduct.productId);
         $('#cartProducts').append(tableRow);
     }
 
+    function formToJson() {
+        let $form = $('#clientForm');
+        let productIds = $('.productIdsInput').data("productId")
+        return {
+            client: {
+                firstName: $form.find("#firstName").val()
+            },
+            orderProductIds: productIds.join()
+        };
+    }
 
-    var myForm = $('#clientForm').serialize();
-    $('#order').click(() =>{
+    $('#order').click(() => {
         $.ajax({
-          type: 'POST',
-          url: "http://localhost:8080/shop/order",
-          contentType: "text/plain",
-          data: myForm,
-          success: (data) => {
-              localStorage.setItem("")
-              window.location.href = "../html/orderList.html";
-          }
+            type: 'POST',
+            url: "http://localhost:8080/shop/order",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(formToJson()),
+            success: (data) => {
+                localStorage.setItem("client", JSON.stringify(data));
+                window.location.href = "../html/orderList.html";
+            }
         });
     });
-
-
 });
