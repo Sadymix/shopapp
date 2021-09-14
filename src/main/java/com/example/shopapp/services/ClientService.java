@@ -1,11 +1,10 @@
 package com.example.shopapp.services;
 
 import com.example.shopapp.dto.OrderDTO;
+import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
 import com.example.shopapp.mappers.OrderMapper;
 import com.example.shopapp.mappers.ProductMapper;
-import com.example.shopapp.models.Order;
-import com.example.shopapp.models.Product;
 import com.example.shopapp.repositories.ClientRepo;
 import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.wrappers.ClientWrapper;
@@ -30,23 +29,21 @@ public class ClientService {
         var client = clientMapper.toEntity(clientWrapper.getClient());
         var orderClient = clientRepo.save(client);
         var orderProductsDTOList = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
-        var orderProductsList = orderProductsDTOList.stream()
-                .map(productMapper::toEntity)
-                .toList();
 
-        var totalPrice = getOrderTotalPrice(orderProductsList);
-        Order order = new Order();
-        order.setClient(orderClient);
-        order.setProductList(orderProductsList);
-        order.setTotalPrice(totalPrice);
-        orderRepo.save(order);
 
-        return orderMapper.toDTO(order);
+        var totalPrice = getOrderTotalPrice(orderProductsDTOList);
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setClientDTO(clientMapper.toDTO(orderClient));
+        orderDTO.setProducts(orderProductsDTOList);
+        orderDTO.setTotalPrice(totalPrice);
+        orderRepo.save(orderMapper.toEntity(orderDTO));
+
+        return orderDTO;
     }
 
-    private Double getOrderTotalPrice(List<Product> orderProductsList) {
+    private Double getOrderTotalPrice(List<ProductDTO> orderProductsList) {
         return orderProductsList.stream()
-                .map(Product::getPrice)
+                .map(ProductDTO::getPrice)
                 .mapToDouble(Double::doubleValue)
                 .sum();
     }
