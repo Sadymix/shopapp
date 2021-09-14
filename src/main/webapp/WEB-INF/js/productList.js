@@ -19,6 +19,7 @@ $(document).ready(() => {
     });
 
     $('#addToCart').click(() => {
+        event.preventDefault();
         $.ajax({
             type: 'POST',
             url: "http://localhost:8080/shop/cart",
