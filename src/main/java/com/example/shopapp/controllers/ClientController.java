@@ -1,39 +1,27 @@
 package com.example.shopapp.controllers;
 
-import com.example.shopapp.services.CartService;
+import com.example.shopapp.dto.OrderDTO;
 import com.example.shopapp.services.ClientService;
 import com.example.shopapp.wrappers.ClientWrapper;
-import com.example.shopapp.wrappers.OrderWrapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/shop")
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/shop")
 public class ClientController {
 
     private final ClientService clientService;
-    private final CartService cartService;
 
 
-    @PostMapping("/order")
-    public String client(@ModelAttribute("clientWrapper") ClientWrapper clientWrapper, Model model) {
-        var clientDTO = clientWrapper.getClient();
-
-        clientService.addClientAndOrder(clientWrapper);
-
-        var theOrderProducts = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
-
-        model.addAttribute("orderProducts", theOrderProducts);
-
-        model.addAttribute("client", clientDTO);
-
-        model.addAttribute("order", new OrderWrapper());
-
-        return "order";
+    @PostMapping(value = "/order",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public OrderDTO client(@RequestBody ClientWrapper clientWrapper) {
+        return clientService.addClientAndOrder(clientWrapper);
     }
 }
