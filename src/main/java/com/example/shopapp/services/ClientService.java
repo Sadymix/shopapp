@@ -4,7 +4,6 @@ import com.example.shopapp.dto.OrderDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
 import com.example.shopapp.mappers.OrderMapper;
-import com.example.shopapp.mappers.ProductMapper;
 import com.example.shopapp.repositories.ClientRepo;
 import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.wrappers.ClientWrapper;
@@ -20,7 +19,6 @@ public class ClientService {
 
     private final ClientMapper clientMapper;
     private final ClientRepo clientRepo;
-    private final ProductMapper productMapper;
     private final OrderRepo orderRepo;
     private final CartService cartService;
     private final OrderMapper orderMapper;
