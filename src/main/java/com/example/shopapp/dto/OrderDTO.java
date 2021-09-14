@@ -1,6 +1,5 @@
 package com.example.shopapp.dto;
 
-import com.example.shopapp.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +15,10 @@ public class OrderDTO {
 
     private Long orderId;
 
-    private Double TotalPrice;
+    private Double totalPrice;
 
-    private List<Product> products;
+    private List<ProductDTO> products;
+
+    private ClientDTO clientDTO;
 
 }
