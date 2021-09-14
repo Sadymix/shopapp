@@ -11,7 +11,8 @@ $(document).ready(() => {
 
     function formToJson() {
         let $form = $('#clientForm');
-        let productIds = $('.productIdsInput').data("productId")
+        let productIds = [];
+        $.each(productsList, (i, p) => productIds.push(p.productId));
         return {
             client: {
                 firstName: $form.find("#firstName").val()
