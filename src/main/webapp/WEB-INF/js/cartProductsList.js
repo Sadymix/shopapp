@@ -15,13 +15,19 @@ $(document).ready(() => {
         $.each(productsList, (i, p) => productIds.push(p.productId));
         return {
             client: {
-                firstName: $form.find("#firstName").val()
+                firstName: $form.find("#firstName").val(),
+                lastName: $form.find("#lastName").val(),
+                city: $form.find("#city").val(),
+                street:$form.find("#street").val(),
+                postalCode:$form.find("#postalCode").val(),
+                country:$form.find("#country").val(),
             },
             orderProductIds: productIds.join()
         };
     }
 
     $('#order').click(() => {
+        event.preventDefault();
         $.ajax({
             type: 'POST',
             url: "http://localhost:8080/shop/order",
@@ -29,7 +35,7 @@ $(document).ready(() => {
             contentType: "application/json",
             data: JSON.stringify(formToJson()),
             success: (data) => {
-                localStorage.setItem("client", JSON.stringify(data));
+                localStorage.setItem("order", JSON.stringify(data));
                 window.location.href = "../html/orderList.html";
             }
         });
