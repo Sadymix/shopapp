@@ -1,6 +1,8 @@
 package com.example.shopapp.services;
 
+import com.example.shopapp.dto.OrderDTO;
 import com.example.shopapp.mappers.ClientMapper;
+import com.example.shopapp.mappers.OrderMapper;
 import com.example.shopapp.mappers.ProductMapper;
 import com.example.shopapp.models.Order;
 import com.example.shopapp.models.Product;
@@ -18,16 +20,13 @@ import java.util.List;
 public class ClientService {
 
     private final ClientMapper clientMapper;
-
     private final ClientRepo clientRepo;
-
     private final ProductMapper productMapper;
-
     private final OrderRepo orderRepo;
-
     private final CartService cartService;
+    private final OrderMapper orderMapper;
 
-    public Order addClientAndOrder(ClientWrapper clientWrapper) {
+    public OrderDTO addClientAndOrder(ClientWrapper clientWrapper) {
         var client = clientMapper.toEntity(clientWrapper.getClient());
         var orderClient = clientRepo.save(client);
         var orderProductsDTOList = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
@@ -42,7 +41,7 @@ public class ClientService {
         order.setTotalPrice(totalPrice);
         orderRepo.save(order);
 
-        return order;
+        return orderMapper.toDTO(order);
     }
 
     private Double getOrderTotalPrice(List<Product> orderProductsList) {
