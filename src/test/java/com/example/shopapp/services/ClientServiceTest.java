@@ -3,6 +3,7 @@ package com.example.shopapp.services;
 import com.example.shopapp.dto.ClientDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
+import com.example.shopapp.mappers.OrderMapper;
 import com.example.shopapp.mappers.ProductMapper;
 import com.example.shopapp.models.Client;
 import com.example.shopapp.models.Order;
@@ -51,6 +52,8 @@ class ClientServiceTest {
     private OrderRepo orderRepo;
     @Mock
     private CartService cartService;
+    @Mock
+    private OrderMapper orderMapper;
 
     @InjectMocks
     private ClientService tested;
@@ -78,6 +81,7 @@ class ClientServiceTest {
         verify(clientMapper).toEntity(any(ClientDTO.class));
         verify(clientRepo).save(CLIENT);
         verify(productMapper, times(3)).toEntity(any(ProductDTO.class));
+        verify(orderMapper).toDTO(any(Order.class));
         verify(orderRepo).save(any(Order.class));
     }
 
