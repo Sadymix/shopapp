@@ -17,4 +17,16 @@ public class ClientMapper {
                 .country(clientDTO.getCountry())
                 .build();
     }
+
+    public ClientDTO toDTO(Client client) {
+        return ClientDTO.builder()
+                .clientId(client.getClientId())
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .city(client.getCity())
+                .street(client.getStreet())
+                .postalCode(client.getPostalCode())
+                .country(client.getCountry())
+                .build();
+    }
 }
