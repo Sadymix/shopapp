@@ -12,16 +12,17 @@ public class OrderMapper {
     private final ProductMapper productMapper;
     private final ClientMapper clientMapper;
 
-    public Order toEntity(OrderDTO orderDTO) {
-        var productsDTOList = orderDTO.getProducts();
-        var productsList = productsDTOList.stream()
-                .map(productMapper::toEntity)
+    public OrderDTO toDTO(Order order) {
+        var productsList = order.getProductList();
+        var productsDTOList = productsList.stream()
+                .map(productMapper::toDto)
                 .toList();
-        return Order.builder()
-                .orderId(orderDTO.getOrderId())
-                .productList(productsList)
-                .totalPrice(orderDTO.getTotalPrice())
-                .client(clientMapper.toEntity(orderDTO.getClientDTO()))
+        var clientDTO = clientMapper.toDTO(order.getClient());
+        return OrderDTO.builder()
+                .orderId(order.getOrderId())
+                .products(productsDTOList)
+                .totalPrice(order.getTotalPrice())
+                .clientDTO(clientDTO)
                 .build();
     }
 }
