@@ -4,6 +4,8 @@ import com.example.shopapp.dto.OrderDTO;
 import com.example.shopapp.dto.ProductDTO;
 import com.example.shopapp.mappers.ClientMapper;
 import com.example.shopapp.mappers.OrderMapper;
+import com.example.shopapp.mappers.ProductMapper;
+import com.example.shopapp.models.Order;
 import com.example.shopapp.repositories.ClientRepo;
 import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.wrappers.ClientWrapper;
@@ -19,6 +21,7 @@ public class ClientService {
 
     private final ClientMapper clientMapper;
     private final ClientRepo clientRepo;
+    private final ProductMapper productMapper;
     private final OrderRepo orderRepo;
     private final CartService cartService;
     private final OrderMapper orderMapper;
@@ -27,15 +30,18 @@ public class ClientService {
         var client = clientMapper.toEntity(clientWrapper.getClient());
         var orderClient = clientRepo.save(client);
         var orderProductsDTOList = cartService.getProductsByIds(clientWrapper.getOrderProductIds());
-
+        var orderProductsList = orderProductsDTOList.stream()
+                .map(productMapper::toEntity)
+                .toList();
 
         var totalPrice = getOrderTotalPrice(orderProductsDTOList);
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setClientDTO(clientMapper.toDTO(orderClient));
-        orderDTO.setProducts(orderProductsDTOList);
-        orderDTO.setTotalPrice(totalPrice);
-        orderRepo.save(orderMapper.toEntity(orderDTO));
+        Order order = new Order();
+        order.setClient(orderClient);
+        order.setProductList(orderProductsList);
+        order.setTotalPrice(totalPrice);
+        orderRepo.save(order);
 
+        OrderDTO orderDTO = orderMapper.toDTO(order);
         return orderDTO;
     }
 
