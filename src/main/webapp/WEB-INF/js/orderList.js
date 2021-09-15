@@ -22,6 +22,10 @@ $(document).ready(() => {
         "TOTAL PRICE " + order.totalPrice + " PLN" +
         "</a>");
     $('#totalPrice').append(cartTotalPrice);
+
+    $('#payment').click(() => {
+        localStorage.clear();
+    })
 })
-localStorage.clear();
+
 
