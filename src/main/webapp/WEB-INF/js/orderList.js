@@ -24,7 +24,8 @@ $(document).ready(() => {
     $('#totalPrice').append(cartTotalPrice);
 
     $('#payment').click(() => {
-        localStorage.clear();
+        localStorage.removeItem("productsList");
+        localStorage.removeItem("order");
     })
 })
 
