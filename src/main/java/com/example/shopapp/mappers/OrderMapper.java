@@ -20,8 +20,8 @@ public class OrderMapper {
         var clientDTO = clientMapper.toDTO(order.getClient());
         return OrderDTO.builder()
                 .orderId(order.getOrderId())
-                .products(productsDTOList)
                 .totalPrice(order.getTotalPrice())
+                .products(productsDTOList)
                 .clientDTO(clientDTO)
                 .build();
     }
