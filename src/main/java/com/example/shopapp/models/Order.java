@@ -24,7 +24,7 @@ public class Order {
     private Long orderId;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private Double totalPrice;
 
     @ManyToMany
     @JoinTable(name = "product_order",
