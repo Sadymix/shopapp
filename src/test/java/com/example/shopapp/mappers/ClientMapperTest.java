@@ -25,10 +25,6 @@ class ClientMapperTest {
         assertEquals(clientDTO.getStreet(), client.getStreet());
         assertEquals(clientDTO.getPostalCode(), client.getPostalCode());
         assertEquals(clientDTO.getCountry(), client.getCountry());
-
-
-
-
     }
 
     @Test
@@ -45,7 +41,7 @@ class ClientMapperTest {
         assertEquals(client.getCity(), clientDTO.getCity());
         assertEquals(client.getStreet(), clientDTO.getStreet());
         assertEquals(client.getPostalCode(), clientDTO.getPostalCode());
-        assertEquals( client.getCountry(), clientDTO.getCountry());
+        assertEquals(client.getCountry(), clientDTO.getCountry());
 
     }
 }
