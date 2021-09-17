@@ -10,16 +10,16 @@ public class ProductMapper {
     public ProductDTO toDto(Product productEntity) {
         return ProductDTO.builder()
                 .productId(productEntity.getProductId())
-                .price(productEntity.getPrice())
                 .productName(productEntity.getProductName())
+                .price(productEntity.getPrice())
                 .build();
     }
 
     public Product toEntity(ProductDTO productDTO) {
         return Product.builder()
                 .productId(productDTO.getProductId())
-                .price(productDTO.getPrice())
                 .productName(productDTO.getProductName())
+                .price(productDTO.getPrice())
                 .build();
     }
 }

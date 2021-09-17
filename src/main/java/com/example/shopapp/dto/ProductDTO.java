@@ -16,8 +16,7 @@ public class ProductDTO {
 
     private Long productId;
     @NotNull
-    private double price;
-    @NotNull
     private String productName;
-
+    @NotNull
+    private double price;
 }
