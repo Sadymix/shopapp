@@ -8,6 +8,7 @@ import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.services.ClientService;
 import com.example.shopapp.wrappers.ClientWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -54,7 +55,7 @@ class WebMvcClientControllerTest {
             .build();
 
     @Test
-    public void testClient() throws Exception{
+    public void testClient() throws Exception {
         ClientWrapper clientWrapper = clientWrapperSetUp();
         OrderDTO orderDTO = orderDTOSetUp();
         given(clientService.addClientAndOrder(clientWrapper)).willReturn(orderDTO);
@@ -78,6 +79,7 @@ class WebMvcClientControllerTest {
 
         return clientWrapper;
     }
+
     private OrderDTO orderDTOSetUp() {
         var productDTOList = List.of(PRODUCT_DTO2, PRODUCT_DTO1, PRODUCT_DTO3, PRODUCT_DTO3);
         OrderDTO orderDTO = new OrderDTO();
@@ -86,11 +88,8 @@ class WebMvcClientControllerTest {
         orderDTO.setClientDTO(CLIENT_DTO);
         return orderDTO;
     }
-    static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    @SneakyThrows(Exception.class)
+    private static String asJsonString(final Object obj) {
+        return new ObjectMapper().writeValueAsString(obj);
     }
 }
