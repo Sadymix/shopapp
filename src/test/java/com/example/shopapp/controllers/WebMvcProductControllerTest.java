@@ -45,7 +45,6 @@ class WebMvcProductControllerTest {
             .price(5.5)
             .build();
 
-
     private MockMvc mvc;
     @Autowired
     private WebApplicationContext context;
@@ -98,5 +97,16 @@ class WebMvcProductControllerTest {
                 .andExpect(jsonPath("$[0].productId", is(Character.getNumericValue(productIdsString.charAt(2)))))
                 .andExpect(jsonPath("$[1].productId", is(Character.getNumericValue(productIdsString.charAt(0)))))
                 .andExpect(jsonPath("$[2].productId", is(Character.getNumericValue(productIdsString.charAt(4)))));
+    }
+
+    @Test
+    public void testGetProductListUnauthenticated() throws Exception {
+        ProductDTO productDTO = new ProductDTO(2L, "milk", 5.0);
+        var productDTOList = List.of(productDTO);
+
+        given(productService.getAllProducts()).willReturn(productDTOList);
+
+        mvc.perform(get("/shop/products"))
+                .andExpect(status().isUnauthorized());
     }
 }
