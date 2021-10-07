@@ -3,18 +3,22 @@ package com.example.shopapp.controllers;
 import com.example.shopapp.dto.ClientDTO;
 import com.example.shopapp.dto.OrderDTO;
 import com.example.shopapp.dto.ProductDTO;
-import com.example.shopapp.repositories.ClientRepo;
-import com.example.shopapp.repositories.OrderRepo;
 import com.example.shopapp.services.ClientService;
 import com.example.shopapp.wrappers.ClientWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
@@ -23,21 +27,20 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ClientController.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class WebMvcClientControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
 
+    private MockMvc mvc;
+    @Autowired
+    private WebApplicationContext context;
     @MockBean
     private ClientService clientService;
-    @MockBean
-    private ClientRepo clientRepo;
-    @MockBean
-    private OrderRepo orderRepo;
 
     private static final ClientDTO CLIENT_DTO = new ClientDTO(5L, "Michael", "Jordan", "Warsaw",
             "Prosta", "50-500", "Poland");
@@ -54,6 +57,15 @@ class WebMvcClientControllerTest {
             .price(5.5)
             .build();
 
+    @BeforeEach
+    void setUp() {
+        mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
+    }
+
+    @WithMockUser()
     @Test
     public void testClient() throws Exception {
         ClientWrapper clientWrapper = clientWrapperSetUp();
@@ -88,6 +100,7 @@ class WebMvcClientControllerTest {
         orderDTO.setClientDTO(CLIENT_DTO);
         return orderDTO;
     }
+
     @SneakyThrows(Exception.class)
     private static String asJsonString(final Object obj) {
         return new ObjectMapper().writeValueAsString(obj);
