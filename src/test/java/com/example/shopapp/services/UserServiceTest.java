@@ -8,8 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -34,7 +35,11 @@ class UserServiceTest {
     @Test
     void testLoadUserByUsername() {
         var user = userService.loadUserByUsername("user");
+        Exception exception = assertThrows(UsernameNotFoundException.class, () -> {
+            userService.loadUserByUsername("admin");
+        });
         verify(userRepo).findByUsername("user");
         assertEquals("user", user.getUsername());
+        assertTrue(exception.getMessage().contains("admin"));
     }
 }
