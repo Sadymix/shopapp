@@ -30,16 +30,22 @@ class UserServiceTest {
     void setUp() {
         doReturn(USER)
                 .when(userRepo).findByUsername("user");
+
     }
 
     @Test
     void testLoadUserByUsername() {
         var user = userService.loadUserByUsername("user");
+        verify(userRepo).findByUsername("user");
+        assertEquals("user", user.getUsername());
+    }
+
+    @Test
+    void testLoadByUsernameExceptionOccurrence() {
+        userService.loadUserByUsername("user");
         Exception exception = assertThrows(UsernameNotFoundException.class, () -> {
             userService.loadUserByUsername("admin");
         });
-        verify(userRepo).findByUsername("user");
-        assertEquals("user", user.getUsername());
         assertTrue(exception.getMessage().contains("admin"));
     }
 }
